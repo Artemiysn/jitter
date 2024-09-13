@@ -13,9 +13,30 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-//User with id as int autoincrement, name as string and email as string
 model User {
-  id    Int     @id @default(autoincrement())
-  name  String
-  email String 
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  email     String   @unique
+  name      String?
+  role      Role     @default(USER)
+  posts     Post[]
+  active    Boolean @default(true)  
+  friendsIds Int[]
+}
+
+model Post {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  published Boolean  @default(false)
+  title     String   @db.VarChar(255)
+  data      String   @db.Text
+  author    User?    @relation(fields: [authorId], references: [id])
+  authorId  Int?
+  likes     Int[]
+}
+
+enum Role {
+  USER
+  ADMIN
 }
