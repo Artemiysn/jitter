@@ -1,4 +1,4 @@
-import SideNav from "@/app/ui/Sidenav/Sidenav";
+import SideNav from "@/components/Sidenav/Sidenav";
 import "@/app/globals.css";
 
 //add fonts
